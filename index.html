@@ -1,0 +1,296 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculator - My ASP.NET Application</title>
+    <link href="Content/Site.css" rel="stylesheet" type="text/css" />
+    <link href="Content/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <script src="Scripts/modernizr-2.6.2.js"></script>
+</head>
+<body>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="/Home">Application name</a>
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="container body-content">
+        
+
+
+<h2>Calculator</h2>
+<div class="container">
+    <table align="center" class="table table-bordered  text-center" style="width:20%;">
+        <thead>
+            <tr>
+                <td colspan="4">
+                    <input id="displaycontent" type="text" class="form-control" value="" />
+                    <br />
+                    <label id="finalresult" style="text-align:center; width:100px"></label>
+                    
+                </td>
+
+            </tr>
+        </thead>
+        <tbody>
+            <tr style="width:50%">
+                <td><button id="seven" class="btn btn-info" default-val="7">7</button></td>
+                <td><button id="eight" class="btn btn-info" default-val="8">8</button></td>
+                <td><button id="nine" class="btn btn-info" default-val="9">9</button></td>
+                <td><button id="divide" class="btn btn-info" default-val="/">/</button></td>
+            </tr>
+            <tr>
+                <td><button id="four" class="btn btn-info" default-val="4">4</button></td>
+                <td><button id="five" class="btn btn-info" default-val="5">5</button></td>
+                <td><button id="six" class="btn btn-info" default-val="6">6</button></td>
+                <td><button id="multiply" class="btn btn-info" default-val="*">*</button></td>
+            </tr>
+            <tr>
+                <td><button id="one" class="btn btn-info" default-val="1">1</button></td>
+                <td><button id="two" class="btn btn-info" default-val="2">2</button></td>
+                <td><button id="three" class="btn btn-info" default-val="3">3</button></td>
+                <td><button id="minus" class="btn btn-info" default-val="-">-</button></td>
+
+            </tr>
+            <tr>
+                <td><button id="cancel" class="btn btn-info" default-val="C">C</button></td>
+                <td><button id="zero" class="btn btn-info" default-val="0">0</button></td>
+                <td><button id="equal" class="btn btn-info" default-val="=">=</button></td>
+                <td><button id="add" class="btn btn-info" default-val="+">+</button></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<script src="Scripts/jquery-1.10.2.min.js"></script>
+<script type="text/javascript">
+    var displayvalue = "";
+
+    $(function () {
+        $("#displaycontent").focus();
+
+    });
+
+
+    $("#displaycontent").keypress(function (event) {
+        //event.preventDefault();
+        var arr = "0123456789+-*/";
+
+        var keycode = (event.keyCode ? event.keyCode : event.which);
+        var char = String.fromCharCode(keycode);
+
+        var inputvalue = this.value;
+        //console.log(inputvalue);
+        //if (keycode == 61 || keycode == 13) {
+        //    // alert("You pressed a enter key in textbox");
+        //    displayvalue += this.value;
+        //    operandsplit();
+
+        //}
+
+        //not allowing the symbol to be enter before number  
+        if (inputvalue[0] == '+' || inputvalue[0] == '-' || inputvalue[0] == '*' || inputvalue[0] == '/') {
+            if (keycode == 61 || keycode == 13) {
+                alert("Please enter a number before Operator");
+                return false;
+            }
+            
+        }
+        //not allowed double operator
+        if (inputvalue.includes("+") || inputvalue.includes("-") || inputvalue.includes("*") || inputvalue.includes("/")) {
+            //displayvalue += inputvalue;
+            var arr2 = "1234567890";
+            var keycode2 = (event.keyCode ? event.keyCode : event.which);
+
+            var char2 = String.fromCharCode(keycode2);
+
+            if (keycode2 == 61 || keycode2 == 13) {
+
+                displayvalue += inputvalue;
+                operandsplit();
+
+            }
+            if (arr2.indexOf(char2) == -1) {
+
+                return false;
+            }
+        }
+
+        if (arr.indexOf(char) == -1) {
+
+            return false;
+        }
+
+    });
+
+
+    function display() {
+        $("#displaycontent").val(displayvalue);
+    }
+
+
+    $("#add").unbind('click').on('click', function () {
+        displayvalue += $(this).attr('default-val');
+        display();
+    });
+
+    $("#minus").unbind('click').on('click', function () {
+        displayvalue += $(this).attr('default-val');
+        display();
+    });
+    $("#multiply").unbind('click').on('click', function () {
+        displayvalue += $(this).attr('default-val');
+        display();
+    });
+    $("#divide").unbind('click').on('click', function () {
+        displayvalue += $(this).attr('default-val');
+        display();
+    });
+    $("#zero").unbind('click').on('click', function () {
+        displayvalue += $(this).attr('default-val');
+        display();
+    });
+    $("#one").unbind('click').on('click', function () {
+        displayvalue += $(this).attr('default-val');
+        display();
+    });
+    $("#two").unbind('click').on('click', function () {
+        displayvalue += $(this).attr('default-val');
+        //$("#displaycontent").val(displayvalue);
+        display();
+    });
+    $("#three").unbind('click').on('click', function () {
+        displayvalue += $(this).attr('default-val');
+        display();
+    });
+    $("#four").unbind('click').on('click', function () {
+        displayvalue += $(this).attr('default-val');
+        display();
+    });
+    $("#five").unbind('click').on('click', function () {
+        displayvalue += $(this).attr('default-val');
+        display();
+    });
+    $("#six").unbind('click').on('click', function () {
+        displayvalue += $(this).attr('default-val');
+        display();
+    });
+    $("#seven").unbind('click').on('click', function () {
+        displayvalue += $(this).attr('default-val');
+        display();
+    });
+    $("#eight").unbind('click').on('click', function () {
+        displayvalue += $(this).attr('default-val');
+        display();
+    });
+    $("#nine").unbind('click').on('click', function () {
+        displayvalue += $(this).attr('default-val');
+        display();
+    });
+
+    $("#cancel").unbind('click').on("click", function () {
+        displayvalue = "";
+        display();
+    });
+
+
+    $("#equal").unbind('click').on('click', function () {
+        operandsplit();
+
+    });
+
+    function operandsplit() {
+        var operand = ["-", "+", "/", "*"];//presenter
+        var calculatingvalue = displayvalue;//names
+        //var matches = operand.includes(calculatingvalue);
+
+        for (var i = 0; i < operand.length; i++) {
+
+            if (calculatingvalue.includes(operand[i])) {
+                opCalculate(calculatingvalue, operand[i]);
+            }
+        }
+    }
+
+    function opCalculate(input, operand) {
+
+        var split = input.split(operand);
+        var firstvalue = parseInt(split[0]);
+        var secondvalue = parseInt(split[1]);
+        var result = '';
+        if (isNaN(secondvalue)) {
+           
+            alert("Please provide the 2nd integer number");
+            clearInput();
+        }
+        else {
+
+
+            switch (operand) {
+                case '+':
+                    result = firstvalue + secondvalue;
+                    break;
+                case '-':
+                    result = firstvalue - secondvalue;
+                    break;
+                case '*':
+                    result = firstvalue * secondvalue;
+                    break;
+                case '/':
+                    result = firstvalue / secondvalue;
+                    break;
+
+            }
+
+            $("#finalresult").text(result);
+           
+            //$("#finalresult").val(result);
+            //alert(result);
+            clearInput();
+        }
+        // console.log(result);
+        //if (result === '') {
+        //    alert("Operation failed");
+        //    clearInput();
+        //}
+        //else {
+        //    $("#finalresult").text(result);
+        //    //$("#finalresult").val(result);
+        //    //alert(result);
+        //    clearInput();
+
+        //}
+
+    }
+
+    function clearInput() {
+        displayvalue = "";
+        $("#displaycontent").val("");
+        $("#displaycontent").focus();
+
+
+    }
+</script>
+
+        <hr />
+        <footer>
+            <p>&copy; 2019 - My ASP.NET Application</p>
+        </footer>
+    </div>
+
+    <script src="Scripts/jquery-1.10.2.min.js"></script>
+    <script src="Scripts/bootstrap.min.js"></script>
+</body>
+</html>
